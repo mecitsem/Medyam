@@ -3,8 +3,52 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{87F37C90-89EA-485B-927E-3D565F118580}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{BE3DEB9A-6154-4EB1-8614-E1B6D0779296}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentations", "Presentations", "{61A9A438-D410-4DC1-89FF-79C5FEB1C117}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medyam.Core", "Medyam.Core\Medyam.Core.csproj", "{3BE155FB-7A7E-4AF2-8175-6F802EFB2BFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medyam.Data", "Medyam.Data\Medyam.Data.csproj", "{1716E731-AC20-4373-8320-DBAAB1911504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medyam.Services", "Medyam.Services\Medyam.Services.csproj", "{6CC5222E-1EB3-4B2B-BAC9-642DD61FAD65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{009C4B3C-B0F9-4264-837C-541029012452}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Medyam.Api", "Medyam.Api\Medyam.Api.xproj", "{50CD8569-BEFC-4350-8FE5-4A7E7DECE75B}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BE155FB-7A7E-4AF2-8175-6F802EFB2BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BE155FB-7A7E-4AF2-8175-6F802EFB2BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BE155FB-7A7E-4AF2-8175-6F802EFB2BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BE155FB-7A7E-4AF2-8175-6F802EFB2BFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1716E731-AC20-4373-8320-DBAAB1911504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1716E731-AC20-4373-8320-DBAAB1911504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1716E731-AC20-4373-8320-DBAAB1911504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1716E731-AC20-4373-8320-DBAAB1911504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CC5222E-1EB3-4B2B-BAC9-642DD61FAD65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC5222E-1EB3-4B2B-BAC9-642DD61FAD65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC5222E-1EB3-4B2B-BAC9-642DD61FAD65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CC5222E-1EB3-4B2B-BAC9-642DD61FAD65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50CD8569-BEFC-4350-8FE5-4A7E7DECE75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50CD8569-BEFC-4350-8FE5-4A7E7DECE75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50CD8569-BEFC-4350-8FE5-4A7E7DECE75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50CD8569-BEFC-4350-8FE5-4A7E7DECE75B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3BE155FB-7A7E-4AF2-8175-6F802EFB2BFD} = {87F37C90-89EA-485B-927E-3D565F118580}
+		{1716E731-AC20-4373-8320-DBAAB1911504} = {87F37C90-89EA-485B-927E-3D565F118580}
+		{6CC5222E-1EB3-4B2B-BAC9-642DD61FAD65} = {87F37C90-89EA-485B-927E-3D565F118580}
+		{50CD8569-BEFC-4350-8FE5-4A7E7DECE75B} = {009C4B3C-B0F9-4264-837C-541029012452}
 	EndGlobalSection
 EndGlobal
