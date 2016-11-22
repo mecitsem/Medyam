@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Upload";
+}
+
+<div class="jumbotron">
+    <h2>@ViewBag.Title</h2>
+    <div class="row">
+        @Html.BeginForm("Upload", "Home", FormMethod.Post)
+        {
+        <div class="col-md-4">
+            <input class="form-control" type="file" name="file_source" size="400">
+        </div>
+        <div class="col-md-7">
+
+            <input type="text" class="form-control" name="file_name_prefix" size="400" placeholder="prefix" required>
+
+        </div>
+        <div class="col-md-1">
+            <input type="button" class="btn btn-primary" value="Upload" />
+        </div>
+        }
+
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-success" style="width: 45%"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>File</th>
+            <th>Size</th>
+            <th>Url</th>
+            <th>Tags</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Animal</td>
+            <td>4 MB</td>
+            <td>Link</td>
+            <td>
+                <span class="label label-primary">animal</span>
+                <span class="label label-primary">lion</span>
+                <span class="label label-primary">wild</span>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+

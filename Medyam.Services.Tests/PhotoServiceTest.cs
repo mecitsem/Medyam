@@ -4,8 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Medyam.Services.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class PhotoServiceTest
     {
+
+
         [TestMethod]
         public void TestMethod1()
         {
