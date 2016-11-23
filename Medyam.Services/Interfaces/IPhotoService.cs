@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace Medyam.Services.Interfaces
 {
     public interface IPhotoService
     {
-        void Create(PhotoEntity entity, HttpPostedFileBase photoFile);
+        void Create(PhotoEntity entity, Stream photoFile);
         List<PhotoEntity> GetAll();
     }
 }

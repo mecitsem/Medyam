@@ -12,54 +12,38 @@ namespace Medyam.Data.Repositories
 {
     public class TableRepository : ITableRepository
     {
-        private readonly CloudTableClient _tableClient;
-
+        private readonly CloudTable _table;
         public TableRepository()
         {
-            var storeAccount = StorageUtils.StorageAccount;
-
-            _tableClient = storeAccount.CreateCloudTableClient();
-
-            var table = _tableClient.GetTableReference(Constants.Azure.Tables.Photos);
-            table.CreateIfNotExists();
+            var storeAccount = StorageUtils.GetStorageAccount();
+            var tableClient = storeAccount.CreateCloudTableClient();
+            _table = tableClient.GetTableReference(Constants.Azure.Tables.Photos);
+            //_table.CreateIfNotExists();
         }
 
         public void CreateEntity(PhotoEntity entity)
         {
-            var table = _tableClient.GetTableReference(Constants.Azure.Tables.Photos);
 
             var insertOperation = TableOperation.Insert(entity);
 
-            table.Execute(insertOperation);
+            _table.Execute(insertOperation);
         }
 
         public List<PhotoEntity> GetEntities(string filter)
         {
-            var table = _tableClient.GetTableReference(Constants.Azure.Tables.Photos);
+   
 
             var query = new TableQuery<PhotoEntity>().Where(TableQuery.GenerateFilterCondition("Owner", QueryComparisons.Equal, filter));
-
-            var photos = table.ExecuteQuery(query).Select(item => new PhotoEntity()
-            {
-                PhotoId = item.PhotoId,
-                Owner = item.Owner,
-                Description = item.Description,
-                IsDone = item.IsDone,
-                PhotoUrl = item.PhotoUrl,
-                Title = item.Title,
-                Tags = item.Tags
-            }).ToList();
-
+            var photos = _table.ExecuteQuery(query).ToList();
             return photos;
         }
 
         public PhotoEntity GetEntity(string partitionKey, string rowKey)
         {
-            var table = _tableClient.GetTableReference(Constants.Azure.Tables.Photos);
-
+            
             var tableOperation = TableOperation.Retrieve<PhotoEntity>(partitionKey, rowKey);
 
-            var entity = table.Execute(tableOperation).Result as PhotoEntity;
+            var entity = _table.Execute(tableOperation).Result as PhotoEntity;
 
             return entity;
 

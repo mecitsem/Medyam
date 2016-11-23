@@ -10,15 +10,19 @@ namespace Medyam.Core.Entities
 {
     public class PhotoEntity : TableEntity
     {
-        public int PhotoId { get; set; }
-        [Required]
+        public PhotoEntity() { }
+
+        public PhotoEntity(string partitionKey,string rowKey)
+        {
+            PartitionKey = partitionKey;
+            RowKey = rowKey;
+        }
+
+
+        public Guid ID { get; set; }
         public string Owner { get; set; }
-        [Required]
         public string Title { get; set; }
-        public string Description { get; set; }
-        public string PhotoUrl { get; set; }
-        public IList<string> Tags { get; set; }
-        public bool IsDone { get; set; }
+        public string Url { get; set; }
 
     }
 }
