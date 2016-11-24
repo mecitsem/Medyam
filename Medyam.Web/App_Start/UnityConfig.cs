@@ -44,7 +44,9 @@ namespace Medyam.Web.App_Start
 
             container.RegisterType<ITableRepository, TableRepository>();
             container.RegisterType<IBlobRepository, BlobRepository>();
+            container.RegisterType<IVisionService, VisionService>();
             container.RegisterType<IPhotoService, PhotoService>();
+            
         }
     }
 }

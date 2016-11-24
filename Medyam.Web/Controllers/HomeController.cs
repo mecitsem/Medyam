@@ -30,7 +30,9 @@ namespace Medyam.Web.Controllers
                 {
                     Url = p.Url,
                     Title = p.Title,
-                    Id = p.ID
+                    Id = p.ID,
+                    Tags = p.Tags
+
                 }).ToList();
             }
             catch
@@ -42,6 +44,29 @@ namespace Medyam.Web.Controllers
         }
 
 
+        public ActionResult Search()
+        {
+            IEnumerable<PhotoModel> photos = null;
+            try
+            {
+                var data = _photoService.GetAll();
+
+                photos = data.AsEnumerable().Where(d => !string.IsNullOrEmpty(d.Url)).Select(p => new PhotoModel()
+                {
+                    Url = p.Url,
+                    Title = p.Title,
+                    Id = p.ID,
+                    Tags = p.Tags
+
+                }).ToList();
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return View(photos);
+        }
 
         public ActionResult Create()
         {

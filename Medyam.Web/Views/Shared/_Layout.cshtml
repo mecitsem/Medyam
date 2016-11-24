@@ -28,33 +28,46 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Add", "Create", "Home")</li>
+                    <li>@Html.ActionLink("Search", "Search", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
-<div class="container body-content">
-    <div class="row">
-        <div class="alert alert-danger" role="alert">Message</div>
+    <div class="container body-content">
+        <div class="row">
+            <div class="alert alert-danger hidden" role="alert">Message</div>
+        </div>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Medyam Application</p>
+        </footer>
     </div>
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Medyam Application</p>
-    </footer>
-</div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.thumbnail').click(function () {
-                $('.modal-body').empty();
-                var title = $(this).parent('a').attr("title");
-                $('.modal-title').html(title);
-                $($(this).parents('div').html()).appendTo('.modal-body');
-                $('#myModal').modal({ show: true });
-            });
+            $('.thumbnail')
+                .click(function () {
+                    $('#modal_body_image').empty();
+                    var title = $(this).parent('a').attr("title");
+                    $('.modal-title').html(title);
+                    $($(this).parents('div').html()).appendTo('#modal_body_image');
+                    var tags = $(this).parent('a').data('tags');
+                    $('#moda_body_image_tags').empty();
+                    if (tags.length > 0) {
+                        var tagsDiv = $('#moda_body_image_tags');
+                        $.each(tags.split(','), function (index, value) {
+                            tagsDiv.append("<span class='label'>" + value + "</span>");
+                            if (index !== 0 && index % 10 === 0)
+                                tagsDiv.append('<br/>');
+                        });
+                    }
+
+                    $('#myModal').modal({ show: true });
+                });
         });
     </script>
 </body>

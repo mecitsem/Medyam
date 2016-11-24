@@ -23,6 +23,6 @@ namespace Medyam.Core.Entities
         public string Owner { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
-
+        public string Tags { get; set; }
     }
 }

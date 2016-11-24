@@ -11,7 +11,7 @@ namespace Medyam.Core.Common
         public static CloudStorageAccount StorageAccount => _storageAccount ?? (_storageAccount = GetStorageAccount());
 
 
-        public static CloudStorageAccount GetStorageAccount()
+        private static CloudStorageAccount GetStorageAccount()
         {
             var account = CloudConfigurationManager.GetSetting(Constants.AppSettings.StorageAccountName);
             var key = CloudConfigurationManager.GetSetting(Constants.AppSettings.StorageAccountAccessKey);

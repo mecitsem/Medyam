@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
+using System.Threading.Tasks;
 using Medyam.Core.Entities;
 using Medyam.Data.Repositories;
+using Microsoft.ProjectOxford.Vision.Contract;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Medyam.Services.Tests
@@ -52,7 +53,7 @@ namespace Medyam.Services.Tests
 
             string photoUrl;
 
-            using (Stream file = System.IO.File.OpenRead(filePath))
+            using (Stream file = File.OpenRead(filePath))
             {
                 photoUrl = blobRepository.UploadBlob(file, entity);
             }
@@ -85,7 +86,7 @@ namespace Medyam.Services.Tests
 
             string photoUrl;
 
-            using (Stream file = System.IO.File.OpenRead(filePath))
+            using (Stream file = File.OpenRead(filePath))
             {
                 photoUrl = blobRepository.UploadBlob(file, entity);
             }
@@ -107,7 +108,8 @@ namespace Medyam.Services.Tests
         {
             var tableRepository = new TableRepository();
             var blobRepository = new BlobRepository();
-            var photoService = new PhotoService(tableRepository, blobRepository);
+            var visionService = new VisionService();
+            var photoService = new PhotoService(tableRepository, blobRepository, visionService);
 
             //Photo
             const string fileName = @"Desert.jpg";
@@ -125,7 +127,7 @@ namespace Medyam.Services.Tests
                 Owner = Owner,
             };
 
-            using (Stream file = System.IO.File.OpenRead(filePath))
+            using (Stream file = File.OpenRead(filePath))
             {
                 photoService.Create(entity, file);
             }
@@ -143,11 +145,26 @@ namespace Medyam.Services.Tests
         {
             var tableRepository = new TableRepository();
             var blobRepository = new BlobRepository();
-            var photoService = new PhotoService(tableRepository, blobRepository);
+            var visionService = new VisionService();
+            var photoService = new PhotoService(tableRepository, blobRepository, visionService);
 
             var photos = photoService.GetAll();
 
             Assert.IsTrue(photos.Count > 0);
+        }
+
+        [TestMethod]
+        public void Test_VisionService()
+        {
+            var visionService = new VisionService();
+            const string photoUrl = @"https://medya.blob.core.windows.net:443/images/photo-c31a565a-b380-496f-8c17-8548c86509bc.jpg";
+
+            var taskVision = visionService.DescripteUrlAsync(photoUrl);
+            taskVision.Wait();
+            var result = taskVision.Result;
+            Assert.IsNotNull(result.Description);
+            Assert.IsTrue(result.Description.Captions.Any());
+            Assert.IsTrue(result.Description.Tags.Any());
         }
 
     }

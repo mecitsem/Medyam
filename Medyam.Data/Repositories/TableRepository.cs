@@ -15,10 +15,10 @@ namespace Medyam.Data.Repositories
         private readonly CloudTable _table;
         public TableRepository()
         {
-            var storeAccount = StorageUtils.GetStorageAccount();
+            var storeAccount = StorageUtils.StorageAccount;
             var tableClient = storeAccount.CreateCloudTableClient();
             _table = tableClient.GetTableReference(Constants.Azure.Tables.Photos);
-            //_table.CreateIfNotExists();
+            _table.CreateIfNotExists();
         }
 
         public void CreateEntity(PhotoEntity entity)
