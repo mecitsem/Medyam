@@ -2,19 +2,49 @@
 @{
     ViewBag.Title = "Home Page";
 }
+@section Styles
+{
+    <style type="text/css">
+        .filtr-item { padding: 1rem; }
+        .item-desc { background-color: rgba(0,0,0,0.5); color: white; position: absolute; text-transform: uppercase; text-align: center; padding: 1rem; z-index: 1; bottom: 1rem; left: 1rem; right: 1rem; }
 
+        /* Search control */
+        .search-row { margin-left: 2.5rem; }
+        .filtr-search { padding: 0.5rem; }
+        .bc-wrapper { position: relative; }
+
+            .bc-wrapper .bc-menu { position: absolute; z-index: 1000; width: 100%; display: none; }
+
+        .input-group .bc-wrapper .bc-menu { top: 38px; }
+    </style>
+}
+
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-xs-12"><input id="filtr-search" type="text" class="form-control filtr-search" name="filtr-search" data-provide="typeahead" data-search placeholder="Enter a tag"></div>
+        </div>
+    </div>
+
+
+</div>
 
 <div class="row">
     <h3>Images </h3>
 
 
     <hr />
-
-    @foreach (var photoModel in Model)
-    {
-        <div class="col-lg-3 col-sm-4 col-xs-6"><a title="@photoModel.Title" data-tags="@photoModel.Tags" href="#"><img class="thumbnail img-responsive" src="@photoModel.Url"></a></div>
-    }
-    <hr />
+    <div class="filtr-container">
+        @foreach (var photoModel in Model)
+        {
+            <div class="col-xs-6 col-sm-4 col-md-3 filtr-item" data-category="1" data-sort="@photoModel.Title">
+                <a href="#" data-tags="@photoModel.Tags">
+                    <img class="thumbnail img-responsive" src="@photoModel.Url" alt="sample image">
+                    <span class="item-desc hidden">@photoModel.Tags</span>
+                </a>
+            </div>
+        }
+    </div>
 </div>
 
 <div tabindex="-1" class="modal fade" id="myModal" role="dialog">
@@ -42,3 +72,46 @@
         </div>
     </div>
 </div>
+@section scripts
+{
+    <script src="@Url.Content("/Scripts/jquery.filterizr.js")"></script>
+    <script src="@Url.Content("/Scripts/bootstrap3-typeahead.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //Tag Autocomplete
+            $.get("@Url.Action("GetTags","Home")", function (data) {
+                $("#filtr-search").typeahead({ source: data });
+            }, 'json');
+
+            //Tag Filter
+            $('.filtr-container').filterizr();
+            //filterizd.filterizr('setOptions', options);
+
+            //Modal
+            $('.thumbnail')
+                .click(function () {
+                    $('#modal_body_image').empty();
+                    var title = $(this).parent('a').attr("title");
+                    $('.modal-title').html(title);
+                    $($(this).parents('div').html()).appendTo('#modal_body_image');
+                    var tags = $(this).parent('a').data('tags');
+                    $('#moda_body_image_tags').empty();
+                    if (tags.length > 0) {
+                        var tagsDiv = $('#moda_body_image_tags');
+                        $.each(tags.split(','),
+                            function (index, value) {
+                                tagsDiv.append("<span class='label'>" + value + "</span>");
+                                if (index !== 0 && index % 10 === 0)
+                                    tagsDiv.append('<br/>');
+                            });
+                    }
+
+                    $('#myModal').modal({ show: true });
+                });
+
+
+
+        });
+    </script>
+}

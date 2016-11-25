@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Medyam.Core.Entities;
 using Medyam.Services.Interfaces;
 using Medyam.Web.Models;
+using Newtonsoft.Json;
 
 namespace Medyam.Web.Controllers
 {
@@ -19,12 +20,12 @@ namespace Medyam.Web.Controllers
 
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             IEnumerable<PhotoModel> photos = null;
             try
             {
-                var data = _photoService.GetAll();
+                var data = await _photoService.GetAllAsync();
 
                 photos = data.AsEnumerable().Where(d => !string.IsNullOrEmpty(d.Url)).Select(p => new PhotoModel()
                 {
@@ -34,22 +35,39 @@ namespace Medyam.Web.Controllers
                     Tags = p.Tags
 
                 }).ToList();
+
+
+                var tagCloud = new List<string>();
+                foreach (var p in photos)
+                {
+                    if (string.IsNullOrEmpty(p.Tags)) continue;
+
+                    foreach (var tag in p.Tags.Split(','))
+                    {
+                        if (!tagCloud.Contains(tag))
+                            tagCloud.Add(tag);
+                    }
+                }
+
+                ViewBag.TagCloudData = JsonConvert.SerializeObject(tagCloud);
             }
             catch
             {
                 // ignored
             }
+
 
             return View(photos);
         }
 
-
-        public ActionResult Search()
+        [HttpGet]
+        public async Task<JsonResult> GetTags()
         {
-            IEnumerable<PhotoModel> photos = null;
+            var tagCloud = new List<string>();
             try
             {
-                var data = _photoService.GetAll();
+                IEnumerable<PhotoModel> photos = null;
+                var data = await _photoService.GetAllAsync();
 
                 photos = data.AsEnumerable().Where(d => !string.IsNullOrEmpty(d.Url)).Select(p => new PhotoModel()
                 {
@@ -59,13 +77,26 @@ namespace Medyam.Web.Controllers
                     Tags = p.Tags
 
                 }).ToList();
+              
+                foreach (var p in photos)
+                {
+                    if (string.IsNullOrEmpty(p.Tags)) continue;
+
+                    foreach (var tag in p.Tags.Split(','))
+                    {
+                        if (!tagCloud.Contains(tag))
+                            tagCloud.Add(tag);
+                    }
+                }
+
+
             }
             catch
             {
                 // ignored
             }
 
-            return View(photos);
+            return Json(tagCloud, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Create()
@@ -75,7 +106,7 @@ namespace Medyam.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PhotoViewModel model, HttpPostedFileBase photo)
+        public async Task<ActionResult> Create(PhotoViewModel model, HttpPostedFileBase photo)
         {
             if (!ModelState.IsValid) return View(model);
             var key = Guid.NewGuid();
@@ -86,7 +117,7 @@ namespace Medyam.Web.Controllers
                 Owner = "medyam"
             };
 
-            _photoService.Create(entity, photo.InputStream);
+            await _photoService.CreateAsync(entity, photo.InputStream);
 
             return RedirectToAction("Index");
         }

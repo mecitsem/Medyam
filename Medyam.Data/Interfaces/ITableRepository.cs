@@ -12,5 +12,10 @@ namespace Medyam.Data.Interfaces
         void CreateEntity(PhotoEntity entity);
         List<PhotoEntity> GetEntities(string filter);
         PhotoEntity GetEntity(string partitionKey, string rowKey);
+
+
+        Task CreateEntityAsync(PhotoEntity entity);
+        Task<List<PhotoEntity>> GetEntitiesAsync(string filter);
+        Task<PhotoEntity> GetEntityAsync(string partitionKey, string rowKey);
     }
 }

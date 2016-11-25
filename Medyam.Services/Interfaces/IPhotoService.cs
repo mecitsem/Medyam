@@ -13,5 +13,8 @@ namespace Medyam.Services.Interfaces
     {
         void Create(PhotoEntity entity, Stream photoFile);
         List<PhotoEntity> GetAll();
+
+        Task CreateAsync(PhotoEntity entity, Stream photoFile);
+        Task<List<PhotoEntity>> GetAllAsync();
     }
 }

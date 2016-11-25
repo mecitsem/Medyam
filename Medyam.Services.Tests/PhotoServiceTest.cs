@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Medyam.Core.Entities;
 using Medyam.Data.Repositories;
-using Microsoft.ProjectOxford.Vision.Contract;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Medyam.Services.Tests
