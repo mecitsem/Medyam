@@ -28,6 +28,7 @@ namespace Medyam.Core.Common
             public const string StorageAccountName = "StorageAccountName";
             public const string StorageAccountAccessKey = "StorageAccountAccessKey";
             public const string SubscriptionKey = "SubscriptionKey";
+            public const string PassPhrase = "PassPhrase";
         }
     }
 }

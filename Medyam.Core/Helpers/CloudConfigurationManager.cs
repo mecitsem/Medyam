@@ -8,7 +8,7 @@ namespace Medyam.Core.Helpers
 {
     public class CloudConfigurationManager
     {
-        private const string Prefix = "azure";
+        private const string Prefix = "medyam";
 
         public static string GetSetting(string key)
         {

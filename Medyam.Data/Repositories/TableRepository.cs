@@ -18,7 +18,7 @@ namespace Medyam.Data.Repositories
             var storeAccount = StorageUtils.StorageAccount;
             var tableClient = storeAccount.CreateCloudTableClient();
             _table = tableClient.GetTableReference(Constants.Azure.Tables.Photos);
-            _table.CreateIfNotExists();
+            //_table.CreateIfNotExists();
         }
 
         public void CreateEntity(PhotoEntity entity)

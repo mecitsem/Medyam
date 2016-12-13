@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace Medyam.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IPhotoService _photoService;

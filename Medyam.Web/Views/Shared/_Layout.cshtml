@@ -11,8 +11,8 @@
         .thumbnail { margin-bottom: 6px; }
         .input-block-level {display: block;width: 100%;min-height: 28px; }
     </style>
-    <link href="@Url.Content("/Content/easy-autocomplete.css")"/>
-    <link href="@Url.Content("/Content/easy-autocomplete.themes.css")" />
+    <link href="@Url.Content("/Content/easy-autocomplete.css")" rel="stylesheet"/>
+    <link href="@Url.Content("/Content/easy-autocomplete.themes.css")" rel="stylesheet" />
     @RenderSection("Styles", false)
 </head>
 <body>
@@ -25,14 +25,20 @@
                     <span class="icon-bar"></span>
                 </button>
                 <img src="@Url.Content("/Images/logo.png")" style="width:48px" class="pull-left" />
-                @Html.ActionLink("Medyam", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("MediaStock", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Add", "Create", "Home")</li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" class="pull-right"> User : <label class="text-primary">@User.Identity.Name</label></a></li>
                 </ul>
             </div>
+            
         </div>
     </div>
     <div class="container body-content">
@@ -42,7 +48,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Medyam Application</p>
+            <p>&copy; @DateTime.Now.Year - MediaStock Application</p>
         </footer>
     </div>
 
